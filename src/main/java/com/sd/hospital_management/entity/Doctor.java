@@ -1,6 +1,8 @@
 package com.sd.hospital_management.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,5 +35,8 @@ public class Doctor {
     @Column(nullable = false, unique=true, length=100)
     private String emeil;
     @ManyToMany(mappedBy = "doctors")
-private Set<Department> departments = new HashSet<>();
+    private Set<Department> departments = new HashSet<>();
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointment=new ArrayList<>();
+
 }

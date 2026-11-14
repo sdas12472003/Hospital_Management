@@ -6,6 +6,7 @@ import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,9 +35,11 @@ public class Appointment {
     @Column(length=100)
     private String reason;
     @ManyToOne 
+    @ToString.Exclude
     @JoinColumn(name="patient_id",nullable = false)
     private Patient patient;
-    @ManyToOne 
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @ToString.Exclude
     @JoinColumn(nullable = false)
     private Doctor doctor;
 }

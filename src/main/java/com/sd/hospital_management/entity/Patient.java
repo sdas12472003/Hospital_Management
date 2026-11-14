@@ -57,12 +57,17 @@ public class Patient {
     private LocalDate createdAt;
     @Enumerated(EnumType.STRING) // It is used to specify that the bloodGroup field should be persisted as a string representation of the BloodGroupType enum values in the database. This means that when a Patient entity is saved to the database, the bloodGroup field will be stored as a string (e.g., "A+", "B-", etc.) rather than as an ordinal value (0, 1, 2, etc.) corresponding to the position of the enum constants.
     private BloodGroupType bloodGroup;
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.ALL},orphanRemoval=true)
     @JoinColumn(name = "patient_insurance_id")
     private Insurance insurance;
-    @OneToMany(mappedBy = "patient",orphanRemoval  =true)
-    @ToString.Exclude
-    private List<Appointment> appointment=new ArrayList<>();
+   @OneToMany(
+    mappedBy = "patient",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true,
+    fetch = FetchType.LAZY
+)
+@ToString.Exclude
+private List<Appointment> appointments = new ArrayList<>();
     
 }
 

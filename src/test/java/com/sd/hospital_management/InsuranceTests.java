@@ -28,12 +28,19 @@ public class InsuranceTests {
         .build();
         Patient patient=insuranceService.assignInsuranceToPatient(insurance, 1L);
         System.out.print(patient);
+        Patient newPatient = insuranceService.disassociateInsuranceFromPatient(patient.getId());
+        System.out.println(newPatient);
     }
     @Test 
     public void testCreateAppointment()
     {
         Appointment appointment=Appointment.builder()
         .appointmentTime(LocalDateTime.of(2025,11,1,14,56))
+        .reason("Cancer")
         .build();
+        var newappontment=appointmentService.createNewAppointment(appointment,1l,2l);
+        System.out.println(newappontment);
+        var updatedAppointment=appointmentService.reAssignmentToAnotherDorctor(newappontment.getId(),3l);
+        System.out.print(updatedAppointment);
     }
 }

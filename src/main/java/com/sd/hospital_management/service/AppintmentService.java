@@ -32,5 +32,14 @@ public class AppintmentService {
         patient.getAppointment().add(appointment);
         return appointmentRepository.save(appointment);
     }
+    @Transactional 
+    public Appointment reAssignmentToAnotherDorctor(Long appointmentId, Long doctorId)
+    {
+        Appointment appointment=appointmentRepository.findById(appointmentId).orElseThrow();
+        Doctor doctor=doctorRepository.findById(doctorId).orElseThrow();
+        appointment.setDoctor(doctor);
+        doctor.getAppointment().add(appointment);
+        return appointment;
+    }
 }
 

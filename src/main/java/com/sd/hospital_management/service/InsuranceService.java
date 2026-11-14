@@ -3,6 +3,8 @@ package com.sd.hospital_management.service;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
+
+import com.sd.hospital_management.entity.Appointment;
 import com.sd.hospital_management.entity.Insurance;
 import com.sd.hospital_management.entity.Patient;
 import com.sd.hospital_management.repository.InsuranceRepository;
@@ -25,4 +27,11 @@ public class InsuranceService {
         insurance.setPatient(patient);
         return patient;
     }
+    @Transactional
+    public Patient disassociateInsuranceFromPatient(Long patientId) {
+        Patient patient = patientRepository.findById(patientId).orElseThrow();
+        patient.setInsurance(null);
+        return patient;
+    }
+    
 }
