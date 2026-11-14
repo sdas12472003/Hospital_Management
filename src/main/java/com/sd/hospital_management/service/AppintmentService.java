@@ -29,7 +29,7 @@ public class AppintmentService {
         }
         appointment.setPatient(patient);
         appointment.setDoctor(doctor);
-        patient.getAppointment().add(appointment);
+        patient.getAppointments().add(appointment);
         return appointmentRepository.save(appointment);
     }
     @Transactional 
